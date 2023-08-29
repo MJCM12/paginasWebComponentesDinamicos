@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <style>@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap'); </style>
+    <title>Piedra Papel o Tijera</title>
+    
+</head>
+<body>
+
+    <div class="container">
+        
+        <section class="marcador">
+
+            <div class="marcador-usuario">
+                <h2 id="nombre-participante">Usuario</h2>
+                <span id="puntuaje-usuario"></span>
+            </div>
+
+            <div class="marcador-computadora">
+                <h2> Computadora</h2>
+                <span id="puntuaje-computadora"></span>
+            </div>
+
+        </section>
+
+     <div class="container-computer">
+
+        <section class="dialogos">
+
+            <input type="text" name="text-computer" class="textos" id="text-computer" placeholder="" disabled>
+
+            <span class="textos" id="text-usuario"> 
+
+                <input type="text" name="escribir-nombre" id="escribir-nombre" >
+                <button id="submit-nombre">Aceptar</button>
+
+            </span>
+    
+       </section>
+
+        <section class="computadora">
+
+
+                <div class="computadora-malvada">
+
+                    <img src="img/img_comput.png" alt="computadora malvada">
+
+                </div>
+
+        </section>
+        
+    </div>
+
+    
+    <section class="opciones">
+
+    <div class="container-player">
+
+        <section class="jugador">
+        <img src="img/img_usuario_derecha-sinfondo.png" alt="jugador">
+            
+        </section>
+
+    </div>
+
+    <div class="pokemones">
+
+        <div class="poke-img"> 
+            <input type="image" src="img/img_piedra.png" name="piedra" value="piedra" class="poke-poke" id="op_piedra" />
+            <p class="pokePPT"><strong>Piedra</strong></p>
+        </div> 
+
+        <div class="poke-img"> 
+            <input type="image" src="img/img_papel.png" name="papel" value="papel" class="poke-poke" id="op_papel" />
+            <p class="pokePPT"><strong>Papel</strong></p>
+        </div>
+
+        <div class="poke-img"> 
+            <input type="image" src="img/img_tijera" name="tijeras" value="tijeras" class="poke-poke" id="op_tijera" />
+            <p class="pokePPT"><strong>Tijeras</strong></p>
+        </div>
+       
+        
+    </div>
+
+    </section>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

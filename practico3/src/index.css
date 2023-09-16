@@ -1,0 +1,91 @@
+:root {
+  --primary: #0d47a1;
+  --primary-dark: #002171;
+  --primary-light: #5472d3;
+  --primary-text: #ffffff;
+}
+
+html {
+  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.wallpapersafari.com%2F41%2F24%2Fau1M5n.jpg&f=1&nofb=1&ipt=bde0351bd52a04e1e196d4abf9892a162e9f9427655f0da295196eddc5719b55&ipo=images");
+}
+
+h1 {
+  font-size: 28px;
+  margin: 0;
+  background-color: #002171;
+  color: white;
+  padding: 8px;
+}
+
+h2 {
+  font-size: 20px;
+  color: white;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.center h1 {
+  margin-top: 70px;
+  margin-left: 0;
+  margin-right: 0;
+}
+.contenedor {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0;
+}
+
+
+.player {
+  margin: 15px;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  background-color:  #002171;
+  color:white;
+  font-size: 20px;
+  border-radius: 10%;
+}
+
+.score {
+  padding: 1px;
+  font-size: small;
+  font-weight: bold;
+  background-color: var(--primary-dark);
+}
+
+.action {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  color: white;
+}
+
+.round-btn {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: none;
+  margin:3px;
+  cursor:pointer;
+  background-color:  #b4c4e9;
+  color: white;
+}
+
+.round-btn:hover {
+ 
+  background-color:  #5472d3;
+  width: 100px;
+  height: 100px;
+
+}

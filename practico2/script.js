@@ -14,42 +14,33 @@ let jugador = '';
 let indexDeBienvenida = 0;
 let indexDePartidas = 0;
 let indexDeJuguemos = 0;
-let indexDeResultado = 0;
-let numeroDeJugadas;
+let numeroDeJugadas = 0;
 let victoria = 0;
 let derrota = 0;
 let resultado = '';
 let numeroDeClicks = 0;
+let pokebola = 1; 
+let contadorFinalJuego = 0;
 
 const inputElemento = document.getElementById('text-computer');
 const textoBienvenida = " Bienvenido humano ¿Cuál es tu nombre?";
-const cuantasPartidas = " ¡Excelente! Escribe 1 para comenzar a jugar";
-const juguemos = '  Piedra Papel o Tijera!';
-const ganaste = 'Ganaste!';
-const perdiste = 'Perdiste!';
-const empate = 'empate :/';
+const cuantasPartidas = " ¡Excelente! ¿Cuantas partidas quieres jugar?";
+const juguemos = '  Piedra Papel o Tijera! Elige un pokemon';
 miResultado.innerText = victoria
 compuResultado.innerText = derrota
 
 
-/*
-function escribirResultado (resultado) {
-
-    if (indexDeResultado < resultado.length) {
-        const despedida = resultado.charAt(indexDeResultado)
-        inputElemento.value += despedida;
-        indexDeResultado++;
-        setTimeout(escribirResultado, 80);
-    } 
-};
-*/
-function piedraPapelOTijeras () {
+function piedraPapelOTijeras (eleccion) {
 
     const max = 3;
     const min = 0;
     const piedra = "piedra";
     const papel = "papel";
     const tijeras = "tijeras";
+    const ganaste = 'Ganaste!';
+    const perdiste = 'Perdiste!';
+    const empate = 'empate :/';
+  
 
     function obtenerJugadaComputadora (min,max) {
         
@@ -73,6 +64,7 @@ function piedraPapelOTijeras () {
     
     miJugada = eleccion;
     
+
     function determinarGanador(jugadaCompu,miJugada) {
     
         if (jugadaCompu === miJugada) {
@@ -89,56 +81,147 @@ function piedraPapelOTijeras () {
           return resultado 
 
 
-    };
-        
+ };
     
-    resultado = determinarGanador(jugadaCompu,miJugada);
 
-    function asignarResultado (resultado) {
+
+resultado = determinarGanador(jugadaCompu,miJugada);
+    
+
+function escribirJugadas (miJugada,jugadaCompu,resultado){
+
+    function escribirMiJugada (miJugada) {
+    inputElemento.value = "";
+    inputElemento.value = "Elegiste " + miJugada;
+        };
+    
+    function escribirJugadaCompu(jugadaCompu) {
+        inputElemento.value = "";
+        inputElemento.value = "La computadora eligió " + jugadaCompu;
+    };
+          
+
+    function escribirResultado (resultado) {
+        inputElemento.value = "";
+        inputElemento.value = resultado;
+    };
+
+
+    
+        escribirMiJugada(miJugada);
+
+                setTimeout(function () {
+                 escribirJugadaCompu(jugadaCompu);
+                    setTimeout(function () {
+                    escribirResultado(resultado);
+                    }, 5000);
+             }, 3000);
+      
+             contadorFinalJuego++;
+
+};
+
+
+function asignarResultado (resultado) {
          
         inputNombre.value = '';
-        inputElemento.value = '';
 
         if (resultado === ganaste) {
-            inputElemento.value = resultado;
+
+            escribirJugadas (miJugada,jugadaCompu,resultado);
             victoria++;
             miResultado.innerText = victoria
 
         } else if (resultado === perdiste) {
-            inputElemento.value = resultado;
+            escribirJugadas (miJugada,jugadaCompu,resultado);
             derrota++;
             compuResultado.innerText = derrota
 
         } else {
-            inputElemento.value = resultado;
-        }
+        escribirJugadas (miJugada,jugadaCompu,resultado);
         return resultado
         
     };
-
+};
     resultado = asignarResultado(resultado);
-    inputNombre.value = "Elige un Pokemon para otra ronda"
+   
     return resultado
-    
+
 };
 
+
+function quienGana (victoria,derrota) {
+    
+            inputElemento.value = '';
+            inputNombre.value = '';
+
+        if (victoria > derrota) {
+            inputElemento.value = 'Ganaste el juego!';
+            inputNombre.value = 'Felicidades!';
+}       else if (derrota > victoria) {
+            inputElemento.value = 'Perdiste el juego!';
+            inputNombre.value = 'La computadora te derrotó';
+}       else if (victoria === derrota){
+            inputElemento.value = 'Increíble pero Empataron ';
+            inputNombre.value = 'El universo es muy confuso';
+}
+
+};
+
+function partidaActual () {
+
+        inputElemento.value = '';
+        inputElemento.value = 'Selecciona otra Pokemon';
+        inputNombre.value = "Acepta despues de haber elegido"
+        eleccion = '';
+        pokebola++;
+
+}
+
+function volverAJugar(){
+    inputElemento.value = '';
+    inputNombre.value = '';
+    inputElemento.value = "Quieres volver a jugar?"
+    inputNombre.value = 'escribe "si" o sal de mi vista!'
+
+}
+
+function nuevaPartida() {
+
+  if(inputNombre.value === 'si') {
+
+                     numeroDeClicks = 1;
+                     inputElemento.value = ''
+                     numeroDeJugadas = 0
+                     inputElemento.value = cuantasPartidas; 
+
+                 } else {
+              inputElemento.value = '';
+              inputElemento.value = 'Hasta pronto!';
+              inputNombre.value = '';
+             }
+}
+
+
+
 function inicio (numeroDeJugadas) {
-    if (numeroDeJugadas == 1) {
+    if (numeroDeJugadas > 0 || numeroDeJugadas <6 ) {
         juguemosMensaje();
     } else {
-        inputNombre.value = 'Error! te dije 1, humano';
+        inputNombre.value = ' Usa valores numericos';  
+        inputElemento.value = ' Error! Solo se pueden elegir hasta 5 rondas '
     }  return  
 };
 
 
+
 function juguemosMensaje () {
-    if (indexDeJuguemos < juguemos.length) {
-        const terceraBienvenida = juguemos.charAt(indexDeJuguemos)
-        inputElemento.value += terceraBienvenida;
-        indexDeJuguemos++;
-        setTimeout(juguemosMensaje, 80);
-    }
-    inputNombre.value = "Haz click sobre un Pokemon"
+    
+     inputElemento.value = juguemos;
+    inputNombre.value = "Acepta despues de haber elegido"
+    pokemones.forEach((input) => {
+        input.disabled = false;
+      });
 };
 
 function preguntarPartidas () {
@@ -161,202 +244,348 @@ function darBienvenida() {
 
  };
 
+ function iniciarVuelta(pokebola) {
+    inputNombre.value = '';
+    let mensajeVuelta = '';
+    inputElemento.value = '...';
+    
+    
+    function vueltas(pokebola) {
+        const duelos = {
+            1 : 'Primer duelo!',
+            2 : 'Segundo duelo!', 
+            3 : 'Tercer duelo!', 
+            4 : 'Cuarto duelo!', 
+            5 : 'Quinto duelo!', 
+        };
+        const llaveDuelo = pokebola;
+    
+        mensajeVuelta = duelos[llaveDuelo];
+        return mensajeVuelta;
+    }
+    vueltas(pokebola);
+    inputNombre.value = mensajeVuelta;
+ };
 
+    
 
 darBienvenida();
 
 
 document.querySelector("button").addEventListener('click', () => {
     
-    if (numeroDeClicks === 0) {
-        numeroDeClicks++;
-        jugador = inputNombre.value;
-        nombreParticipante.innerText = jugador;
-        inputElemento.value = ''
-        preguntarPartidas();
+    if (numeroDeJugadas === 0){
         
-    } else if (numeroDeClicks === 1) {
-        numeroDeJugadas = parseInt(inputNombre.value);
-        inputElemento.value = '';
-        inicio(numeroDeJugadas);
-   } 
- });
 
-pokemones.forEach ((input) => {
-    console.log("Adding event listener to:", input);
- input.addEventListener("click", (e) => {
-    eleccion = e.target.value;
-    inputElemento.value = '';
-    piedraPapelOTijeras ();
-    });
-});
+         if (numeroDeClicks === 0) {
+                      if (inputNombre.value === "") {
+                inputElemento.value = 'Escribe tu nombre'
+                 } else {
+                    numeroDeClicks++;
+                    jugador = inputNombre.value;
+                    nombreParticipante.innerText = jugador;
+                    inputElemento.value = ''
+                    preguntarPartidas();
 
-
-
-
-
-/*submitInfo.forEach((button) => {
-    button.addEventListener("click", (e) => {
-        jugador = inputNombre.value;
-        nombreParticipante.textContent = jugador;
-      });
- }); 
-
- submitInfo.addEventListener('click', () => {
-    // Assigning the input value to the jugador variable
-    jugador = inputNombre.value;
-    
-    // Updating the content of #nombre-participante
-    nombreParticipante.textContent = jugador;
-  });
-
-
-
-const readlineSync = require('readline-sync');
-
-
-let jugadaCompu;
-let resultado;
-let miJugada;
-let resultadoFinal;
-let jugadasGanadasComputadora = 0
-let jugadasGanadasUsuario = 0
-let numeroDeJugadas;
-
-
-
-
-function obtenerResultadoFinal (jugadasGanadasComputadora, jugadasGanadasUsuario) {
-    if (jugadasGanadasComputadora > jugadasGanadasUsuario) {
-        resultadoFinal = 'Gana la computadora'
-    } else if (jugadasGanadasComputadora < jugadasGanadasUsuario) {
-        resultadoFinal = 'Gana el usuario'
-    } else {
-        resultadoFinal = 'empate';
-    }
-    return resultadoFinal
-};
-
-function partidaDeTresRounds (numeroDeJugadas) {
-    for (let i = 0; i < numeroDeJugadas; i++) {
-        
-        resultado = piedraPapelOTijeras();
-        console.log(resultado)
-
-        if (i === 0) {
-                if (resultado == 'Gana la computadora') {
-                    jugadasGanadasComputadora ++;
-                } else if (resultado == 'Gana el usuario'){
-                    jugadasGanadasUsuario ++;
-                } else {
-                    resultadoFinal = resultado;
                 }
+
+            } else if (numeroDeClicks === 1) {
+                numeroDeJugadas = parseInt(inputNombre.value);
+                inputElemento.value = '';
+                inicio(numeroDeJugadas);
+                numeroDeClicks++;
+
+            } 
+
+        } else if (numeroDeJugadas === 1) {
+
+
+                if (numeroDeClicks === 2) {
+
+                inputElemento.value = '';
+                inputNombre.value = '';
+
+                inputElemento.value = '';
+                pokemones.forEach((input) => {
+                input.disabled = true;
+             });
+
+            setTimeout(piedraPapelOTijeras(eleccion),3000);
+
+            setTimeout(function(){
+                if (contadorFinalJuego === 1) {
+                volverAJugar()
+            }},10000);
+
+            numeroDeClicks++
+
+            } else if (numeroDeClicks === 3) {
+             
+                 nuevaPartida();
+      }
+
+
+        } else if (numeroDeJugadas === 2) {
         
+        if (numeroDeClicks === 2) {
+        
+             inputElemento.value = '';
+             inputNombre.value = '';
+            
+            iniciarVuelta(pokebola);
+
+        setTimeout(function() {piedraPapelOTijeras(eleccion);
+                setTimeout(function() {
+                    partidaActual();
+                   },12000)},6000);
+
+            numeroDeClicks++
+
+        } else if (numeroDeClicks === 3) {
+            inputElemento.value = '';
+            inputNombre.value = '';
+
+           iniciarVuelta(pokebola);
+
+          setTimeout(function() {piedraPapelOTijeras(eleccion);
+          
+                setTimeout(function() {
+                    quienGana(victoria,derrota);
+                     setTimeout(function() 
+                        {volverAJugar()
+                    },15000)
+                },12000)
+            },6000);
+
+            numeroDeClicks++
+
+        }  else if (numeroDeClicks === 4){
+           
+         nuevaPartida();
+
+        }
+          
+
+        } else if (numeroDeJugadas === 3) {
+        
+        if (numeroDeClicks === 2) {
+        
+             inputElemento.value = '';
+             inputNombre.value = '';
+            
+            iniciarVuelta(pokebola);
+
+        setTimeout(function() {piedraPapelOTijeras(eleccion);
+                setTimeout(function() {
+                    partidaActual();
+                   },12000)},6000);
+
+            numeroDeClicks++
+
+        } else if (numeroDeClicks === 3) {
+        
+             inputElemento.value = '';
+             inputNombre.value = '';
+            
+            iniciarVuelta(pokebola);
+
+        setTimeout(function() {piedraPapelOTijeras(eleccion);
+                setTimeout(function() {
+                    partidaActual();
+                   },12000)},6000);
+
+            numeroDeClicks++
+
         } 
-        
-        if (i === 1) {
-            if (resultado == 'Gana la computadora') {
-                jugadasGanadasComputadora ++;
-            } else if (resultado == 'Gana el usuario') {
-                jugadasGanadasUsuario ++;
-            } else {
-                resultadoFinal = resultado;
-            }
+        else if (numeroDeClicks === 4) {
+            inputElemento.value = '';
+            inputNombre.value = '';
+
+           iniciarVuelta(pokebola);
+
+          setTimeout(function() {piedraPapelOTijeras(eleccion);
+          
+                setTimeout(function() {
+                    quienGana(victoria,derrota);;
+                     setTimeout(function() 
+                        {volverAJugar()
+                    },15000)
+                },12000)
+            },6000);
+
+            numeroDeClicks++
+
+        }  else if (numeroDeClicks === 5){
+           
+         nuevaPartida();
+
         }
 
-        if (i === 2) {
-            if (resultado == 'Gana la computadora') {
-                jugadasGanadasComputadora ++;
-            } else if (resultado == 'Gana el usuario'){
-                jugadasGanadasUsuario ++;
-            } else {
-                resultadoFinal = resultado;
-            }
-        }   
-
-    };
-    console.log(jugadasGanadasComputadora);
-    console.log(jugadasGanadasUsuario);
-
-    obtenerResultadoFinal (jugadasGanadasComputadora, jugadasGanadasUsuario)
-
-    return resultadoFinal
-    
-    };
-
-
-function partidaDeDosRounds (numeroDeJugadas) {
-    for (let i = 0; i < numeroDeJugadas; i++) {
+    }     else if (numeroDeJugadas === 4) {
         
-        resultado = piedraPapelOTijeras();
-        console.log(resultado)
-
-        if (i === 0) {
-                if (resultado == 'Gana la computadora') {
-                    jugadasGanadasComputadora ++;
-                } else if (resultado == 'Gana el usuario'){
-                    jugadasGanadasUsuario ++;
-                } else {
-                    resultadoFinal = resultado;
-                }
+        if (numeroDeClicks === 2) {
         
+             inputElemento.value = '';
+             inputNombre.value = '';
+            
+            iniciarVuelta(pokebola);
+
+        setTimeout(function() {piedraPapelOTijeras(eleccion);
+                setTimeout(function() {
+                    partidaActual();
+                   },12000)},6000);
+
+            numeroDeClicks++
+
+        } else if (numeroDeClicks === 3) {
+        
+             inputElemento.value = '';
+             inputNombre.value = '';
+            
+            iniciarVuelta(pokebola);
+
+        setTimeout(function() {piedraPapelOTijeras(eleccion);
+                setTimeout(function() {
+                    partidaActual();
+                   },12000)},6000);
+
+            numeroDeClicks++
+
+        } else if (numeroDeClicks === 4) {
+        
+             inputElemento.value = '';
+             inputNombre.value = '';
+            
+            iniciarVuelta(pokebola);
+
+        setTimeout(function() {piedraPapelOTijeras(eleccion);
+                setTimeout(function() {
+                    partidaActual();
+                   },12000)},6000);
+
+            numeroDeClicks++
+
         } 
+        else if (numeroDeClicks === 5) {
+            inputElemento.value = '';
+            inputNombre.value = '';
+
+           iniciarVuelta(pokebola);
+
+          setTimeout(function() {piedraPapelOTijeras(eleccion);
+          
+                setTimeout(function() {
+                    quienGana(victoria,derrota);
+                     setTimeout(function() 
+                        {volverAJugar()
+                    },15000)
+                },12000)
+            },6000);
+
+            numeroDeClicks++
+
+        }  else if (numeroDeClicks === 6){
+           
+         nuevaPartida();
+
+        }
+
+    }    else   {
         
-        if (i === 1) {
-            if (resultado == 'Gana la computadora') {
-                jugadasGanadasComputadora ++;
-            } else if (resultado == 'Gana el usuario'){
-                jugadasGanadasUsuario ++;
-            } else {
-                resultadoFinal = resultado;
-            }
-        }   
+        if (numeroDeClicks === 2) {
+        
+             inputElemento.value = '';
+             inputNombre.value = '';
+            
+            iniciarVuelta(pokebola);
 
-    };
+        setTimeout(function() {piedraPapelOTijeras(eleccion);
+                setTimeout(function() {
+                    partidaActual();
+                   },12000)},6000);
 
-    console.log(jugadasGanadasComputadora);
-    console.log(jugadasGanadasUsuario);
+            numeroDeClicks++
 
-    obtenerResultadoFinal (jugadasGanadasComputadora, jugadasGanadasUsuario)
+        } else if (numeroDeClicks === 3) {
+        
+             inputElemento.value = '';
+             inputNombre.value = '';
+            
+            iniciarVuelta(pokebola);
 
-    return resultadoFinal
-    
-    };
+        setTimeout(function() {piedraPapelOTijeras(eleccion);
+                setTimeout(function() {
+                    partidaActual();
+                   },12000)},6000);
 
-*/
+            numeroDeClicks++
 
-    
-/*
-function inicio (numeroDeJugadas) {
-if (numeroDeJugadas == 1 || numeroDeJugadas == 2 || numeroDeJugadas == 3) {
-    resultadoFinal = numeroDeVueltas(numeroDeJugadas)
-} else {
-    console.log('Error, solo puedes elegir 1, 2 o 3');
-while (numeroDeJugadas !== 1 || numeroDeJugadas !== 2 || numeroDeJugadas !== 3) {
-    numeroDeJugadas = readlineSync.question('Intentalo otra vez. ')
-    if (numeroDeJugadas == 1 || numeroDeJugadas == 2 || numeroDeJugadas == 3){
-    break;
+        } else if (numeroDeClicks === 4) {
+        
+             inputElemento.value = '';
+             inputNombre.value = '';
+            
+            iniciarVuelta(pokebola);
+
+        setTimeout(function() {piedraPapelOTijeras(eleccion);
+                setTimeout(function() {
+                    partidaActual();
+                   },12000)},6000);
+
+            numeroDeClicks++
+
+        } else if (numeroDeClicks === 5) {
+        
+             inputElemento.value = '';
+             inputNombre.value = '';
+            
+            iniciarVuelta(pokebola);
+
+        setTimeout(function() {piedraPapelOTijeras(eleccion);
+                setTimeout(function() {
+                    partidaActual();
+                   },12000)},6000);
+
+            numeroDeClicks++
+
         } 
-    }
-      resultadoFinal = numeroDeVueltas(numeroDeJugadas)
-    };
-    return resultadoFinal;
+        else if (numeroDeClicks === 6) {
+            inputElemento.value = '';
+            inputNombre.value = '';
+
+           iniciarVuelta(pokebola);
+
+          setTimeout(function() {piedraPapelOTijeras(eleccion);
+          
+                setTimeout(function() {
+                    quienGana(victoria,derrota);;
+                     setTimeout(function() 
+                        {volverAJugar()
+                    },15000)
+                },12000)
+            },6000);
+
+            numeroDeClicks++
+
+        }  else if (numeroDeClicks === 7){
+           
+         nuevaPartida();
+
+        }
+
+    } 
+
 }
+    
+);
+      
 
-numeroDeJugadas = readlineSync.question("Bienvenido. Cuantas partidas quieres jugar? ")
 
-function numeroDeVueltas (numeroDeJugadas) {
-    if (numeroDeJugadas == 1) {
-        resultado = piedraPapelOTijeras()
-    } else if (numeroDeJugadas == 2) {
-        resultado = partidaDeDosRounds(numeroDeJugadas);
-    } else {
-        resultado = partidaDeTresRounds(numeroDeJugadas);
-    }
-    return resultado
-}
+pokemones.forEach ((input) => {
 
-resultadoFinal = inicio(numeroDeJugadas);
-console.log('El resultado fue: ' + resultadoFinal + '.')
+ input.addEventListener("click", (e) => {
+  
+    eleccion = e.target.value;
 
-*/
+ });});
+
